@@ -43,7 +43,7 @@ class UserInterface
 
 	def getConversionResult
 		obj=ExchangeOperation.new(@fromCurrency,@toCurrency,@amount)
-		puts "\n#{obj.getConvertedRate}\n\n"
+		puts "With The Exchange Rate We Have You Will Get \n#{obj.getConvertedRate} Amount When You Are Exchainging The Currency From #{@fromCurrency} to #{@toCurrency}.\n\n"
 		confirmationMsg
 	end
 
