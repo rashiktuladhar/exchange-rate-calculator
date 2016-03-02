@@ -3,14 +3,13 @@ require "yaml"
 
 class ExchangeOperation
 	
-	attr_accessor :innerCurrencyValue, :outerCurrencyValue , :outputAmount
+	attr_accessor :innerCurrencyValue, :outerCurrencyValue , :outputAmount 
 	
 	def initialize(innerCurrency,outerCurrency,inputAmount)
-	
 		@config = YAML::load_file(File.join(File.dirname(File.expand_path(__FILE__)), 'assets/exchange-rates.yml'))
 		@innerCurrency=innerCurrency
 		@outerCurrency=outerCurrency
-		@inputAmount=inputAmount
+		@inputAmount=inputAmount.to_f
 
 		@innerCurrencyValue=innerCurrencyValue
 		@outerCurrencyValue=outerCurrencyValue
@@ -24,13 +23,11 @@ class ExchangeOperation
 		@outerCurrencyValue = @config[:"#{@outerCurrency}"][:value].to_f	
 
 		if @innerCurrencyValue > @outerCurrencyValue
-			@outputAmount = @innerCurrencyValue * @outerCurrencyValue * @amount
+			@outputAmount = @innerCurrencyValue * @outerCurrencyValue * @inputAmount
 		else
-			@outputAmount = ( @innerCurrencyValue / @outerCurrencyValue ) * @amount
+			@outputAmount =  @innerCurrencyValue * @inputAmount  / @outerCurrencyValue
 		end
-
-		# @outputAmount
-
+		
 	end
 end
 
