@@ -16,15 +16,22 @@ class UserInterface
 
 	def askCurrencyFormats
 		
-		puts "\nPlease Enter The Your Currency Conversion From And To In The Format (NRS,INR)\n"
+		puts "\nPlease Enter Your Required Conversion In The Format (From Currency,To Currency ) Without The Braces. eg. US,NPR\n\n
+				For Now We Have Selected List of The Conversions Available \n
+				NPR -> Nepal\n
+				US -> US Dollars\n
+				YEN -> Japanese YEN\n
+				EURO -> Euro Pound\n
+		"
 
 		convertCurrency=gets.chomp.split(/\s*,\s*/)
 		
-		if convertCurrency.count > 2
+		if convertCurrency.count != 2 
           puts "\nInvalid Input Format\n"
           initialize
         else
           @fromCurrency, @toCurrency= convertCurrency
+          puts "#{@fromCurrency.to_s.upcase} To #{@toCurrency.to_s.upcase}"
           askAmount
         end
 
@@ -34,7 +41,12 @@ class UserInterface
 	def askAmount
 		
 		puts "\nPlease Enter The Amount You Want To Convert\n"
-    	@amount=gets.chomp  
+    	@amount=gets.chomp 
+    	if @amount.to_s==""
+    		 puts "\nYou Forgot To Insert The Amount. Please Enter The Amount For The Calculation.\n"
+    		 askAmount	
+    	end 
+    	puts "Amount : " + @amount
       	getConversionResult
 	end
 
@@ -43,7 +55,8 @@ class UserInterface
 
 	def getConversionResult
 		obj=ExchangeOperation.new(@fromCurrency,@toCurrency,@amount)
-		puts "With The Exchange Rate We Have You Will Get \n#{obj.getConvertedRate} Amount When You Are Exchainging The Currency From #{@fromCurrency} to #{@toCurrency}.\n\n"
+		puts "\n\nConversion From \n#{@fromCurrency.to_s.upcase} To #{@toCurrency.to_s.upcase}\nAmount : #{@amount}\nConverted Amount: #{@toCurrency.to_s.upcase} #{obj.getConvertedRate.round(2)}"
+		# puts "\n\nWith The Exchange Rate We Have You Will Get #{@fromCurrency}. #{obj.getConvertedRate} Amount When You Are Exchainging The Currency From #{@fromCurrency.to_s.upcase} to #{@toCurrency.to_s.upcase}.\n\n"
 		confirmationMsg
 	end
 
