@@ -38,16 +38,17 @@ class UserInterface
 	end
 
 
+
 	def askAmount
-		
 		puts "\nPlease Enter The Amount You Want To Convert\n"
     	@amount=gets.chomp 
     	if @amount.to_s==""
     		 puts "\nYou Forgot To Insert The Amount. Please Enter The Amount For The Calculation.\n"
     		 askAmount	
+    	else
+    		puts "Amount : " + @amount
+      		getConversionResult
     	end 
-    	puts "Amount : " + @amount
-      	getConversionResult
 	end
 
 
@@ -74,7 +75,6 @@ class UserInterface
 	    end
 
 	end
-
 
 end
 
