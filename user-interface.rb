@@ -1,3 +1,6 @@
+#!/usr/bin/env ruby
+
+#./user-interface.rb
 
 require_relative 'exchange-operation.rb';
 
